@@ -1,40 +1,30 @@
 # Load the package required to read JSON files.
-
-#This package exposes some additional functions to convert json/text to data frame
-library(rlist)
-#This package exposes some additional functions to convert json/text to data frame
 library(jsonlite)
-
-# This package is required for Accessing APIS (HTTP or HTTPS URLS from Web)
 library(httr)
-#library(curl)
+
 
 # Load sensitive information from environment file .ev aat base of project
 readRenviron(".env")
 
-#url <- "http://localhost:8098/api/v1/stats/requests/json"
-
-url <- "http://localhost:8098/api/v1/stats/requests?size=1"
+uri <- "http://localhost:8098/api/v1/stats/requests/json"
 
 user <- Sys.getenv("USER")
 pass <- Sys.getenv("PASS")
+jsonFile <- "application_requests.json"
+
+resp <- httr::GET(uri,write_disk(jsonFile, overwrite = TRUE),authenticate(user = user,password = pass),verbose())
 
 
-resp <- httr::GET(url,authenticate(user = user,password = pass),verbose())
-
-
-http_error(resp)
+if(http_error(resp)==TRUE){
+  # error occurred do something I think
+}
 http_type(resp)
 
-jsonRespText<-content(resp,as="text",encoding = 'UTF-8') 
 
-write(jsonRespText, file="export.JSON") # save to a physical file for faster access
+jsonRespParsed<-fromJSON(jsonFile) 
 
-jsonRespParsed<-content(resp,as="parsed")
+print(jsonRespParsed$content)
 
-modJson<-jsonRespParsed$content #. Access content element of whole list and ignore other vectors
+#convert to data frame
+json_data_frame <- as.data.frame(jsonRespParsed)# do something with the data now
 
-#Using dplyr and base R
-requestData <- list.select(modJson,id,requestDate,countryCode,lat,lon,fullNames,gender,phoneNumber,userType,useCase)
-
-myData <- list.stack(requestData)
