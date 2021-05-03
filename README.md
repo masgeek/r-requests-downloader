@@ -14,6 +14,9 @@ This tool uses a number of open source projects to work properly:
 
 - [R](https://www.r-project.org/) - The ultimate statistical tool!
 
+## authentication
+
+Currently the utility used Basic authorization, we however plant to move ont o more secure methods in the near future
 
 ## Sample data
 
