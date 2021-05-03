@@ -2,9 +2,6 @@
 library(jsonlite)
 library(httr)
 
-###### Here is s sample fo rth eJSON data for reference
-
-
 # Load sensitive information from environment file .env aat base of project, this wont be committed to github
 readRenviron(".env")
 user <- Sys.getenv("USER")
