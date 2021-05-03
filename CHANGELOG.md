@@ -1,4 +1,30 @@
 
+<a name="1.2.0"></a>
+## [1.2.0](https://github.com/masgeek/r-requests-downloader/compare/1.0.0...1.2.0)
+
+> 2021-05-03
+
+### Docs
+
+* added changelog file
+* added changelog generation configuration
+* added xtra space for env file renaming
+
+### Feat
+
+* switched to using RCurl for downloads
+
+### Pull Requests
+
+* Merge pull request [#4](https://github.com/masgeek/r-requests-downloader/issues/4) from masgeek/doc/changelog
+* Merge pull request [#3](https://github.com/masgeek/r-requests-downloader/issues/3) from masgeek/fix/large-downloads
+
+### BREAKING CHANGE
+
+
+
+
+
 <a name="1.0.0"></a>
 ## 1.0.0
 
