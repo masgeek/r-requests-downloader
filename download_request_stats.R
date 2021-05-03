@@ -3,14 +3,19 @@ library(jsonlite)
 library(httr)
 
 
-# Load sensitive information from environment file .ev aat base of project
+# Load sensitive information from environment file .env aat base of project, this wont be committed to github
 readRenviron(".env")
 
-uri <- "http://localhost:8098/api/v1/stats/requests/json"
+
 
 user <- Sys.getenv("USER")
 pass <- Sys.getenv("PASS")
+
+base_url <- Sys.getenv("BASE_URL") #base URL for the api endpoint
 jsonFile <- "application_requests.json"
+
+uri <- paste(base_url,"/v1/stats/requests/json")
+
 
 resp <- httr::GET(uri,write_disk(jsonFile, overwrite = TRUE),authenticate(user = user,password = pass),verbose())
 
