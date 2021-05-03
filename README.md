@@ -61,7 +61,9 @@ Currently the utility used Basic authorization, we however plant to move ont o m
 
 ## Setup
 
-Sensitive information such as passwords are stored in an environment file `.env` refer to ther `.env.example` for required variable names
+Sensitive information such as passwords are stored in an environment file `.env` refer to the `.env.example` for required variable names
+
+rename the  `.env.example` refer to the `.env`
 
 ## License
 
