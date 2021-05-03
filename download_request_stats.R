@@ -1,30 +1,31 @@
 # Load the package required to read JSON files.
 library(jsonlite)
-library(httr)
+library(RCurl)
 
 # Load sensitive information from environment file .env aat base of project, this wont be committed to github
 readRenviron(".env")
 user <- Sys.getenv("USER")
 pass <- Sys.getenv("PASS")
 base_url <- Sys.getenv("BASE_URL") #base URL for the api endpoint
-jsonFile <- "application_requests.json"
+jsonFile <- "json_application_requests.json"
 
 uri <- paste(base_url,"/v1/stats/requests/json",sep="")
+auth <- base64Encode(paste(user,sep=":",pass))
 
+hdr=c(Authorization=paste("Basic",auth))
 
-resp <- httr::GET(uri,write_disk(jsonFile, overwrite = TRUE),authenticate(user = user,password = pass),verbose())
-
-
-if(http_error(resp)==TRUE){
-  # error occurred do something I think
+bdown=function(url, file){
+  f = CFILE(file, mode="wb")
+  a = curlPerform(url = url, writedata = f@ref, noprogress=FALSE, .opts = list(httpheader=hdr)  )
+  close(f)
+  return(a)
 }
-http_type(resp)
 
+print(paste("Downloading from",uri))
+ret = bdown(uri, jsonFile)
 
 jsonRespParsed<-fromJSON(jsonFile) 
+# convert to data frame
+json_data_frame <- as.data.frame(jsonRespParsed$content)
 
-print(jsonRespParsed$content)
-
-#convert to data frame
-json_data_frame <- as.data.frame(jsonRespParsed)# do something with the data now
-
+print("Download completed, do something with the data now")
