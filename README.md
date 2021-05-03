@@ -65,6 +65,11 @@ Sensitive information such as passwords are stored in an environment file `.env`
 
 rename the  `.env.example` refer to the `.env`
 
+### Changelog generation
+
+> git-chglog -o CHANGELOG.md
+
+
 ## License
 
 MIT
