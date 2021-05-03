@@ -23,27 +23,45 @@ Currently the utility used Basic authorization, we however plant to move ont o m
 
 
 ```json
-    {
-      "id": 1,
-      "requestDate": "2021-04-28T12:09:53",
-      "deviceToken": "",
-      "countryCode": "NG",
-      "lat": 6.115468,
-      "lon": 7.442762,
-      "fullNames": "John Doe",
-      "genderName": "NA",
-      "gender": "NA",
-      "phoneNumber": "254",
-      "userType": "EA",
-      "useCase": "FR",
-      "createdAt": "2021-04-28 12:09:53",
-      "updatedAt": "2021-04-28 09:09:53"
-    }
+   "content": [
+     {
+        "id": 1,
+        "requestDate": "2021-04-28T12:09:53",
+        "deviceToken": "",
+        "countryCode": "NG",
+        "lat": 6.115468,
+        "lon": 7.442762,
+        "fullNames": "John Doe",
+        "genderName": "NA",
+        "gender": "NA",
+        "phoneNumber": "254",
+        "userType": "EA",
+        "useCase": "FR",
+        "createdAt": "2021-04-28 12:09:53",
+        "updatedAt": "2021-04-28 09:09:53"
+      },
+      {
+        "id": 3,
+        "requestDate": "2021-04-28T12:09:53",
+        "deviceToken": "",
+        "countryCode": "NG",
+        "lat": 6.115468,
+        "lon": 7.442762,
+        "fullNames": "John Doe",
+        "genderName": "NA",
+        "gender": "NA",
+        "phoneNumber": "254",
+        "userType": "EA",
+        "useCase": "FR",
+        "createdAt": "2021-04-28 12:09:53",
+        "updatedAt": "2021-04-28 09:09:53"
+      }
+    ]
 ```
 
 ## Setup
 
-Sensitive information such as passwords are storrend in an environment file `.env` refer to ther `.env.example` for required variable names
+Sensitive information such as passwords are stored in an environment file `.env` refer to ther `.env.example` for required variable names
 
 ## License
 
