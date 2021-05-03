@@ -10,7 +10,7 @@ pass <- Sys.getenv("PASS")
 base_url <- Sys.getenv("BASE_URL") #base URL for the api endpoint
 jsonFile <- "application_requests.json"
 
-uri <- paste(base_url,"/v1/stats/requests/json")
+uri <- paste(base_url,"/v1/stats/requests/json",sep="")
 
 
 resp <- httr::GET(uri,write_disk(jsonFile, overwrite = TRUE),authenticate(user = user,password = pass),verbose())
