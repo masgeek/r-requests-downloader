@@ -2,7 +2,7 @@
 library(jsonlite)
 library(RCurl)
 
-# Load sensitive information from environment file .env aat base of project, this wont be committed to github
+# Load sensitive information from environment file .env at base of project, this wont be committed to github
 readRenviron(".env")
 user <- Sys.getenv("USER")
 pass <- Sys.getenv("PASS")
