@@ -5,12 +5,8 @@ library(httr)
 
 # Load sensitive information from environment file .env aat base of project, this wont be committed to github
 readRenviron(".env")
-
-
-
 user <- Sys.getenv("USER")
 pass <- Sys.getenv("PASS")
-
 base_url <- Sys.getenv("BASE_URL") #base URL for the api endpoint
 jsonFile <- "application_requests.json"
 
