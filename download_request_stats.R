@@ -1,31 +1,45 @@
-# Load the package required to read JSON files.
+# Load required packages for JSON file handling and HTTP requests
 library(jsonlite)
 library(RCurl)
 
-# Load sensitive information from environment file .env at base of project, this wont be committed to github
+# Load sensitive information from environment file (.env) at the project root. This file is not committed to version control.
 readRenviron(".env")
+
+# Retrieve credentials and base URL from environment variables
 user <- Sys.getenv("USER")
 pass <- Sys.getenv("PASS")
-base_url <- Sys.getenv("BASE_URL") #base URL for the api endpoint
-jsonFile <- "json_application_requests.json"
+base_url <- Sys.getenv("BASE_URL")  # Base URL for the API endpoint
 
-uri <- paste(base_url,"/v1/stats/requests/json",sep="")
-auth <- base64Encode(paste(user,sep=":",pass))
+# Set target file for downloaded JSON data
+json_file <- "json_application_requests.json"
 
-hdr=c(Authorization=paste("Basic",auth))
+# Construct the API URI
+uri <- paste0(base_url, "/v1/stats/requests/json")
 
-bdown=function(url, file){
-  f = CFILE(file, mode="wb")
-  a = curlPerform(url = url, writedata = f@ref, noprogress=FALSE, .opts = list(httpheader=hdr)  )
-  close(f)
-  return(a)
+# Encode user credentials for Basic Authentication
+auth <- base64Encode(paste(user, pass, sep=":"))
+headers <- c(Authorization = paste("Basic", auth))
+
+# Define a function to download data from a URL and save to file
+download_json <- function(url, file) {
+  file_connection <- CFILE(file, mode="wb")
+  response <- curlPerform(
+    url = url,
+    writedata = file_connection@ref,
+    noprogress = FALSE,
+    .opts = list(httpheader = headers)
+  )
+  close(file_connection)
+  return(response)
 }
 
-print(paste("Downloading from",uri))
-ret = bdown(uri, jsonFile)
+# Download JSON data from the API
+print(paste("Downloading from", uri))
+response <- download_json(uri, json_file)
 
-jsonRespParsed<-fromJSON(jsonFile) 
-# convert to data frame
-json_data_frame <- as.data.frame(jsonRespParsed$content)
+# Parse the downloaded JSON file and convert content to a data frame
+json_response <- fromJSON(json_file)
+json_data_frame <- as.data.frame(json_response$content)
 
-print("Download completed, do something with the data now")
+# Print completion message
+print("Download completed. Data is ready for processing.")
